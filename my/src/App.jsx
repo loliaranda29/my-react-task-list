@@ -1,26 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import TaskList from './componentes/TaskList';
 import Titulo from './componentes/Header';
 
-const tasks = [
-  { id: 1, name: 'Completar el informe de ventas', completed: false },
-  { id: 2, name: 'Hacer ejercicio por 30 minutos', completed: true },
-  { id: 3, name: 'Ir de compras al supermercado', completed: false },
-  { id: 4, name: 'Llamar a mamá para su cumpleaños', completed: true },
-  { id: 5, name: 'Revisar y responder correos electrónicos', completed: false },
-  { id: 6, name: 'Preparar la cena', completed: true },
-  { id: 7, name: 'Leer un capítulo del libro actual', completed: false },
-  { id: 8, name: 'Hacer una caminata de 1 hora', completed: true },
-];
+const App = () => {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState({ name: '', completed: false });
 
-function App() {
+  useEffect(() => {
+    // Cargar las tareas desde localStorage al cargar la aplicación
+    const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    setTasks(storedTasks);
+  }, []);
+
+  useEffect(() => {
+    // Almacenar las tareas en localStorage cada vez que se actualice la lista de tareas
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
+  const addTask = () => {
+    if (newTask.name.trim() !== '') {
+      setTasks([...tasks, { id: tasks.length + 1, name: newTask.name, completed: false }]);
+      setNewTask({ name: '', completed: false });
+    }
+  };
+
+  const editTask = (taskId, newName, newCompleted) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, name: newName, completed: newCompleted } : task
+    );
+    setTasks(updatedTasks);
+  };
+
+  const deleteTask = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(updatedTasks);
+  };
+
+  const deleteAllTasks = () => {
+    setTasks([]);
+  };
+
   return (
-    <div className="App">
-      <Titulo/>
-      <TaskList tasks={tasks} />
-    </div>
-  );
-}
+    
+      <div className="App">
+        <Titulo />
+        <div className="task-container">
+          <div className="task-add">
+            <input
+              type="text"
+              placeholder="Nueva tarea"
+              value={newTask.name}
+              onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
+            />&nbsp; &nbsp;
+            <button onClick={addTask}>
+              <span role="img" aria-label="Agregar tarea">
+                ➕
+              </span>
+            </button>
+          </div>
+          <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
+          <button onClick={deleteAllTasks} className="delete-all-button">
+            <span role="img" aria-label="Eliminar todas las tareas">
+              🗑️
+            </span>
+          </button>
+        </div>
+      </div>
+    );
+ 
+};
 
 export default App;
