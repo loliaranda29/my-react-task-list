@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import TaskList from './componentes/TaskList';
 import Titulo from './componentes/Header';
