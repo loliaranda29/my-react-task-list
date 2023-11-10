@@ -34,9 +34,10 @@ function Task({ task, editTask, deleteTask }) {
       )}
       <button onClick={() => setIsEditing(!isEditing)}>
           <span role="img" aria-label="Cancelar edición">
-            🚫
+           ✏️
           </span>
         </button>
+        
         <button onClick={() => deleteTask(task.id)}>
           <span role="img" aria-label="Eliminar tarea">
             🗑️
