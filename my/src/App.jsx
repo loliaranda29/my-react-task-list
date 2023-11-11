@@ -1,4 +1,5 @@
-import Theme from './componentes/Theme';
+import { ChakraProvider } from '@chakra-ui/react';
+import theme from './componentes/Theme';
 import React from 'react';
 import './App.css';
 import TaskList from './componentes/TaskList';
@@ -21,7 +22,7 @@ const App = () => {
   };
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
     <div className="App">
       <Titulo />
       <form onSubmit={handleTaskSubmission}>
