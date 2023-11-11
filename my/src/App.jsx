@@ -1,3 +1,4 @@
+import { ChakraProvider, Input, Button, VStack, Center } from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
 import TaskList from './componentes/TaskList';
@@ -20,27 +21,28 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <Titulo />
-      <form onSubmit={handleTaskSubmission}>
-        <div className="task-container">
-          <div className="task-add">
-            <input
-              type="text"
-              placeholder="Nueva tarea"
-              value={newTask.name}
-              onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
-            />&nbsp; &nbsp;
-            <button type="submit">
-              <span role="img" aria-label="Agregar tarea">
-                ➕
-              </span>
-            </button>
-          </div>
-        </div>
-      </form>
-      <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
-    </div>
+    <ChakraProvider>
+      <Center>
+        <VStack spacing={6} w="400px" mt={8}>
+          <Titulo />
+          <form onSubmit={handleTaskSubmission}>
+            <VStack spacing={2} w="100%">
+              <Input
+                placeholder="Nueva tarea"
+                value={newTask.name}
+                onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
+              />
+              <Button type="submit" leftIcon="add">
+                Agregar tarea
+              </Button>
+            </VStack>
+          </form>
+          <VStack w="100%" align="start">
+            <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
+          </VStack>
+        </VStack>
+      </Center>
+    </ChakraProvider>
   );
 };
 
