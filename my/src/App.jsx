@@ -1,3 +1,4 @@
+import Theme from './componentes/Theme';
 import React from 'react';
 import './App.css';
 import TaskList from './componentes/TaskList';
@@ -20,6 +21,7 @@ const App = () => {
   };
 
   return (
+    <ChakraProvider>
     <div className="App">
       <Titulo />
       <form onSubmit={handleTaskSubmission}>
@@ -41,6 +43,7 @@ const App = () => {
       </form>
       <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
     </div>
+    </ChakraProvider>
   );
 };
 
