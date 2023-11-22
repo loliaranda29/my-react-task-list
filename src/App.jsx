@@ -33,7 +33,6 @@ const App = () => {
                 onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
               />
               <Button type="submit" leftIcon="add">
-                Agregar tarea
               </Button>
             </VStack>
           </form>
