@@ -23,7 +23,7 @@ function Task({ task, editTask, deleteTask }) {
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
           />
-          <button onClick={handleSave}>Guardar</button>
+          <button onClick={handleSave}>Save</button>
         </>
       ) : (
         <>
@@ -33,13 +33,13 @@ function Task({ task, editTask, deleteTask }) {
         </>
       )}
       <button onClick={() => setIsEditing(!isEditing)}>
-          <span role="img" aria-label="Cancelar edición">
+          <span role="img" aria-label="Cancel edit">
            ✏️
           </span>
         </button>
         
         <button onClick={() => deleteTask(task.id)}>
-          <span role="img" aria-label="Eliminar tarea">
+          <span role="img" aria-label="Delete task">
             🗑️
           </span>
         </button>

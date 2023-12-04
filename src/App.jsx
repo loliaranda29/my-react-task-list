@@ -1,9 +1,10 @@
-import { ChakraProvider, Input, Button, VStack, Center } from '@chakra-ui/react';
+import { ChakraProvider, Input, Button, VStack, Center, Text, ColorModeScript} from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
-import TaskList from './componentes/TaskList';
-import Titulo from './componentes/Header';
+import TaskList from './components/TaskList';
+import Title from './components/Header';
 import UseTaskManager from './hooks/hooks'; 
+import theme from './theme'
 
 const App = () => {
   const {
@@ -22,21 +23,23 @@ const App = () => {
 
   return (
     <ChakraProvider>
-      <Center>
-        <VStack spacing={6} w="400px" mt={8}>
-          <Titulo />
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <Center w="1300px"  h='800'>
+        <VStack spacing={6} w="600px">
+          <Text  bgGradient='linear(to-l, #7928CA, #FF0080)' bgClip='text' fontSize='2xl' fontWeight='bold'>
+          <Title /></Text>
           <form onSubmit={handleTaskSubmission}>
             <VStack spacing={2} w="100%">
               <Input
-                placeholder="Nueva tarea"
+                placeholder="New task"
                 value={newTask.name}
                 onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
               />
-              <Button type="submit" leftIcon="add">
+              <Button colorScheme='blue' type="submit" leftIcon="Add">
               </Button>
             </VStack>
           </form>
-          <VStack w="100%" align="start">
+          <VStack spacing={6} w="600px" mt={8}>
             <TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
           </VStack>
         </VStack>
