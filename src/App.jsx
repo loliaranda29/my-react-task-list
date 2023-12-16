@@ -7,6 +7,7 @@ import UseTaskManager from './hooks/hooks';
 import theme from './theme';
 
 
+
 const App = () => {
   const {
     tasks,
@@ -22,11 +23,8 @@ const App = () => {
     addTask();
   };
 
-  const { toggleColorMode, colorMode } = useColorMode();
-
   return ( 
-    <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+     
       <Center w="1300px"  h='800'>
       <VStack spacing={6} w="600px">    
           <Title />
@@ -47,7 +45,7 @@ const App = () => {
           </VStack>
         </VStack>
       </Center>
-    </ChakraProvider>
+     
   );
 };
 
