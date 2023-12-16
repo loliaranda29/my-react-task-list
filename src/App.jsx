@@ -1,10 +1,11 @@
-import { ChakraProvider, Input, Button, VStack, Center, Text, ColorModeScript} from '@chakra-ui/react';
+import { ChakraProvider, Input, Button, IconButton, VStack, Center, Text, ColorModeScript, useColorMode} from '@chakra-ui/react';
 import React from 'react';
 import './App.css';
 import TaskList from './components/TaskList';
 import Title from './components/Header';
-import UseTaskManager from './hooks/hooks'; 
-import theme from './theme'
+import UseTaskManager from './hooks/hooks';
+import theme from './theme';
+
 
 const App = () => {
   const {
@@ -21,16 +22,18 @@ const App = () => {
     addTask();
   };
 
-  return (
-    <ChakraProvider>
+  const { toggleColorMode, colorMode } = useColorMode();
+
+  return ( 
+    <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Center w="1300px"  h='800'>
-        <VStack spacing={6} w="600px">
-          <Text  bgGradient='linear(to-l, #7928CA, #FF0080)' bgClip='text' fontSize='2xl' fontWeight='bold'>
-          <Title /></Text>
+      <VStack spacing={6} w="600px">    
+          <Title />
           <form onSubmit={handleTaskSubmission}>
             <VStack spacing={2} w="100%">
               <Input
+                variant='filled'
                 placeholder="New task"
                 value={newTask.name}
                 onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
